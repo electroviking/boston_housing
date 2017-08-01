@@ -11976,7 +11976,9 @@ Standard deviation of prices: $165,171.13
 <ol>
 <li>I believe  RM number should increase property value.</li>
 <li>LSTAT neighborhoods tend to be more affordable. So, the higher LSTAT % the less valuable the property</li>
-<li>Neighborhoods with PTRATIO of 10 should be evaluated higher than PTRATIO of 15.</li>
+<li>Neighborhoods with PTRATIO of 10 should be evaluated higher than PTRATIO of 15. 
+--Edit--
+Good neighborhood has all the resources to hire more teachers to provide better education for students within the area. Higher PTRATIO is not a good sign. </li>
 </ol>
 
 </div>
@@ -13863,11 +13865,20 @@ First, models applies parameters. Then crossvalidate each combination, picks bes
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <ol>
-<li><p>K-fold is a CV technique of training model by splitting data into k training sets and a test set. Model then iterates over training and testing data k times reserving different test set each time. The k results then averaged to produce an estimate. Basically automated way of training model .</p>
-</li>
-<li><p>Cross validation validates data with grid parameters. CV will vary base on applied parameters, that helps to estimate best outcome.</p>
-</li>
+<li>K-fold is a CV technique of training model by splitting data into k training sets and a test set. Model then iterates over training and testing data k times reserving different test set each time. The k results then averaged to produce an estimate. Basically automated way of training model . 
+-- edit --
+GridSearchCV only splits training data set.</li>
 </ol>
+<p>If we use default KFold method, the data will be split sequentially by default. 
+These are default parameters:
+def <strong>init</strong>(self, n_splits=3, shuffle=False,
+                 random_state=None):</p>
+<ol>
+<li>Cross validation validates data with grid parameters. CV will vary base on applied parameters, that helps to estimate best outcome.</li>
+</ol>
+<p>--edit--</p>
+<p>If we split data into 8:2  training/validation set and train each parameter on the training set grid search will tune parameters to come up with the best result. Fairness  of the result will depend on the quality of the data we provided.</p>
+<p>With K-fold CV data split into training/testing data using k-fold technique. That prevents grid search model from overfitting.</p>
 
 </div>
 </div>
@@ -13904,7 +13915,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -13943,6 +13954,25 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Users\Timofey\Anaconda2\lib\site-packages\sklearn\cross_validation.py:44: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  &#34;This module will be removed in 0.20.&#34;, DeprecationWarning)
+C:\Users\Timofey\Anaconda2\lib\site-packages\sklearn\grid_search.py:43: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. This module will be removed in 0.20.
+  DeprecationWarning)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -14109,7 +14139,9 @@ Predicted selling price for Client 3&#39;s home: $942,666.67
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <ol>
-<li>I like the results, however I think that cient 2 is underrated. Client N2 should be around $250k. </li>
+<li>I like the results, however I think that client 2 is underrated. Client N2 should be around $250k. 
+--edit-- 
+250k is not calculated answer. I gave Client2 250k price tag because ignoring high LSTAT and PTRATIO it's still 4 room house. Compare to Client1 and Client3  189k seems too low. </li>
 </ol>
 
 </div>
@@ -14191,8 +14223,13 @@ Range in prices: $69,044.61
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong></p>
-<p>Overall constructed model produces relatively good baseline results. Obviously with more data about each house and neighborhood model could produce more accurate results. So, I think this model can be used in the real world, but as overall baseline.</p>
+<p><strong>Answer: </strong>
+Overall constructed model produces relatively good baseline results. Obviously with more data about each house and neighborhood model could produce more accurate results. So, I think this model can be used in the real world, but as overall baseline.</p>
+<p>-- edit--</p>
+<p>Today’s data most likely very different from the data collected in 1978. Inflation plays significant role here. The situation with LSTAT as well might've dramatically changed in some neighborhoods.</p>
+<p>Yes I think quality of appliances in homes, square feet of the plot area, presence of pool or not etc should factor in. Features presented in the data are not sufficient to describe home, but good enough for general evaluation. Having more features would give us more precise evaluation.</p>
+<p>With presented features the model is robust enough as an overall evaluation, but not sensitive enough. There's more features needed if we expect the model to be more precise.</p>
+<p>Data collected in urban city like Boston shouldn't be applied to rural city. Urban data can have  features that can only be unique to urban area. Features like convenience stores, train/metro stations, access to parks and etc could significantly increase or reduce house value. In rural city same features wouldn't affect house value much because lifestyle of rural and urban cities tend to be different. Or some of the features might not be available in rural area.at all .</p>
 
 </div>
 </div>
